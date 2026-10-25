@@ -1,40 +1,31 @@
-# Кардиолог — концепции первого экрана
+# Cardiologist — Landing Concepts
 
-Тестовое задание: визуальные концепции главного блока с отдельной мобильной композицией.
+Three desktop/mobile visual directions presented in an HTML gallery.
 
-**Проект:** Дизайн-концепция.
+[Open gallery](https://memorim.github.io/cardiologist-landing-designs/)
 
-[Посмотреть галерею](https://memorim.github.io/cardiologist-landing-designs/)
+![Desktop composition](assets/01-01_focus_desktop.png)
 
-![Компьютерная версия](assets/01-01_focus_desktop.png)
+<img src="assets/01-01_focus_mobile.png" width="320" alt="Mobile composition">
 
-<img src="assets/01-01_focus_mobile.png" width="320" alt="Мобильная версия">
+## Implementation
 
-## Что сделано
-- 3 визуальных направления, отдельные компьютерные и мобильные композиции.
-- Типографика, цвета, расстановка акцентов и основной призыв к действию.
-- Адаптивная HTML-галерея для просмотра результатов без редактора.
+HTML/CSS gallery with PNG previews and editable SVG assets. The gallery can be served directly; no application build or secret configuration is needed. Desktop and mobile compositions are separate assets.
 
-## Материалы
-PNG и редактируемые SVG трёх концепций с портретом врача.
-
-## Запуск и проверка
-Проверено с Python 3.12.14 только для локального сервера и проверки файлов. Сама галерея использует HTML и CSS без сборки и зависимостей.
+## Local setup and checks
 
 ```bash
 python tests/check_assets.py
-python -m http.server 8080
+python .github/scripts/check_docs.py
+python -m http.server 8080 --bind 127.0.0.1
 ```
 
-Открыть http://localhost:8080. Кнопки навигации галереи работают; элементы внутри макетов остаются изображениями.
+Use Python 3.12.14, matching CI. Open `http://localhost:8080`. CI checks asset references and documentation; it does not certify interactive behavior inside images.
 
-## Реализация
-Макеты показаны в исходных пропорциях: компьютерная и мобильная композиции подготовлены отдельно. Галерея использует CSS Grid и обычные HTML-ссылки, дополнительные экраны раскрываются через details. Данные посетителей не собираются.
+## Scope and limits
 
-## Демонстрация просмотра
-[Короткий GIF галереи](docs/demo.gif).
+A design gallery, not a medical appointment application. Controls inside preview images are not working forms.
 
-[Проверка файлов и запуска](docs/VERIFICATION.md).
+No database, migrations or API are required for this static scope. Forms or integrations would be a separate implementation task.
 
-## Проверки и обновления
-CI проверяет проект и ссылки на локальные материалы. Dependabot предлагает обновления зависимостей и Actions. [История изменений](CHANGELOG.md).
+[Technical details](docs/TECHNICAL.md) · [Recorded checks](docs/VERIFICATION.md) · [Change history](CHANGELOG.md)
