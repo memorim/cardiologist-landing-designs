@@ -1,3 +1,4 @@
 docs/frame-*.png
 docs/ui-*.txt
 __pycache__/
+node_modules/
