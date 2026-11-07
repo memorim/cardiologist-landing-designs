@@ -13,3 +13,5 @@
 Сервис Render использует Node.js и переменную `DATABASE_URL`. Запуск: `pnpm install --frozen-lockfile`, затем `pnpm start`. При старте применяется [миграция](001_appointments.sql). В CI сценарий `pnpm test` проверяет оба сайта с PostgreSQL.
 
 [Проверка опубликованной формы 07.11.2026](docs/LIVE_INTAKE_VERIFICATION.md).
+
+[Бесплатные уведомления о заявках](docs/FREE_NOTIFICATIONS.md).

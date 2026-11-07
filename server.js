@@ -1,3 +1,4 @@
+import { notificationWorker } from './notifications.js';
 import express from 'express';
 import pg from 'pg';
 import { readFile } from 'node:fs/promises';
@@ -35,4 +36,13 @@ app.post('/api/appointments/:site',express.json({limit:'4kb'}),async(req,res)=>{
   return result.rowCount ? res.status(201).json({id}) : res.sendStatus(409);
 });
 app.use((error,_req,res,_next)=>res.status([400,413].includes(error.status)?error.status:503).json({error:'Заявка не сохранена. Повторите отправку.'}));
-app.listen(Number(process.env.PORT||4833),process.env.RENDER?'0.0.0.0':'127.0.0.1');
+const notifications = notificationWorker(db);
+const server = app.listen(Number(process.env.PORT || 4833), process.env.RENDER ? '0.0.0.0' : '127.0.0.1', () => notifications.start());
+let stopping = false;
+for (const signal of ['SIGINT','SIGTERM']) process.on(signal, async () => {
+  if (stopping) return;
+  stopping = true;
+  try { await notifications.stop(); } finally {
+    server.close(() => { db.end().catch(() => {}); });
+  }
+});
